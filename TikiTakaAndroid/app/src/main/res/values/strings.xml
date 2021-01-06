@@ -9,4 +9,5 @@
     <string name="name">이름</string>
     <string name="PasswordCheck">Password check</string>
     <string name="signUp">SignUp</string>
+    <string name="login_fail">id와 password가 일치하지 않습니다</string>
 </resources>
