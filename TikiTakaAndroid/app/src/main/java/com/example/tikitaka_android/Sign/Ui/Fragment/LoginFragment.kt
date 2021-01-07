@@ -1,4 +1,4 @@
-package com.example.tikitaka_android.Sign.Ui
+package com.example.tikitaka_android.Sign.Ui.Fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,16 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import com.example.tikitaka_android.R
+import com.example.tikitaka_android.Sign.Ui.SignActivity
+import com.example.tikitaka_android.Sign.ViewModel.SignViewModel
+import kotlinx.android.synthetic.main.activity_sign.*
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class LoginFragment : Fragment() {
+    val viewModel: SignViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -23,12 +29,14 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         login_login_button.setOnClickListener {
+            var id = sign_id_editText.text.toString()
+            var password = sign_password_editText.text.toString()
 
+            viewModel.login(id,password)
         }
 
         login_notUser_button.setOnClickListener {
-            val intent = Intent(context, SignUpFragment::class.java)
-            startActivity(intent)
+
         }
     }
 
