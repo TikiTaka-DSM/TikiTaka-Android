@@ -13,7 +13,7 @@ class TikiTakaApplication : Application() {
     }
 
     override fun onCreate() {
-        instance = this
         super.onCreate()
+        instance = this
     }
 }
