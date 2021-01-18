@@ -84,6 +84,6 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-TikiTaka-Android/.idea
+TikiTakaAndroid/.idea/
 
 .DS_Store
