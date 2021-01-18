@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tikitaka_android.R
 
-class ModifyProfileFragment : Fragment() {
+class MyProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
