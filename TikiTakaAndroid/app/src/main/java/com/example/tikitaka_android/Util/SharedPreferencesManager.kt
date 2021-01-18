@@ -1,30 +1,21 @@
 package com.example.tikitaka_android.Util
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 
-class SharedPreferencesManager {
+class SharedPreferencesManager() {
 
-    private val sharedPref: SharedPreferences = TikiTakaApplication.context!!.getSharedPreferences(
-        MY_APP_PREFERENCES,
-        Context.MODE_PRIVATE
-    )
+    private var sharedPreference = TikiTakaApplication.context!!.getSharedPreferences(MY_APP_PREFERENCES, MODE_PRIVATE)
 
     var accessToken: String?
-        get() = sharedPref.getString(SAVE_TOKEN, null)
-        set(value) {
-            val editor = sharedPref.edit()
-            editor.putString(SAVE_TOKEN, value)
-            editor.apply()
-        }
+        get() = sharedPreference.getString(SAVE_TOKEN," ")
+        set(value)= sharedPreference.edit().putString(SAVE_TOKEN,value).apply()
 
     var refreshToken: String?
-        get() = sharedPref.getString(SAVE_REFRESH, null)
-        set(value) {
-            val editor = sharedPref.edit()
-            editor.putString(SAVE_REFRESH, value)
-            editor.apply()
-        }
+        get() = sharedPreference.getString(SAVE_REFRESH, " ")
+        set(value) = sharedPreference.edit().putString(SAVE_REFRESH,value).apply()
+
 
     companion object {
         private const val MY_APP_PREFERENCES = "Yally-Android"
