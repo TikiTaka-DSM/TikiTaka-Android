@@ -1,6 +1,5 @@
 package com.example.tikitaka_android.Sign.Ui.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.tikitaka_android.R
 import com.example.tikitaka_android.Sign.Data.SignUpRequest
-import com.example.tikitaka_android.Sign.ViewModel.SignViewModel
+import com.example.tikitaka_android.Sign.ViewModel.SignUpViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
-    private val viewModel: SignViewModel by viewModels()
+    private val viewModel: SignUpViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
