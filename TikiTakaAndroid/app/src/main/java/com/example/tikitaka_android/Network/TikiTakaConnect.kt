@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object TikiTakaConnect{
     private var retrofit: Retrofit
     private var api: TikiTakaAPI
-    private val baseURL = "http://54.180.2.226/tikitaka/api"
+    private val baseURL = "http://54.180.2.226:5000"
 
     init{
         val loggingInterceptor = HttpLoggingInterceptor()

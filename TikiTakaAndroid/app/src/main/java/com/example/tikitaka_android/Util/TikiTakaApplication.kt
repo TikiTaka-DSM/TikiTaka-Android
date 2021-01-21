@@ -4,16 +4,13 @@ import android.app.Application
 import android.content.Context
 
 class TikiTakaApplication : Application() {
-    companion object {
-        var instance: TikiTakaApplication? = null
-        private set
 
-        val context: Context?
-        get() = instance
+    companion object {
+        var prefs: SharedPreferencesManager? = null
     }
 
     override fun onCreate() {
-        instance = this
+        val prefs = SharedPreferencesManager(applicationContext)
         super.onCreate()
     }
 }

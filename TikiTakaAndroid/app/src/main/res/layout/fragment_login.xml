@@ -53,6 +53,7 @@
         android:background="@drawable/login_id_button"
         android:hint="@string/password"
         android:paddingLeft="15dp"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_id_editText" />
@@ -84,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@id/login_password_editText" />
 
     <Button
-        android:id="@+id/login_notUser_button"
+        android:id="@+id/login_goSign_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
