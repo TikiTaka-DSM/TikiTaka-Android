@@ -25,7 +25,7 @@ class LoginViewModel : ViewModel() {
                         getAuthSuccess(result.data)
                     }
                 }
-                
+
                 is Result.Error -> {
 
                 }
