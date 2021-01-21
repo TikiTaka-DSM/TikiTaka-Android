@@ -10,21 +10,21 @@ import kotlinx.coroutines.launch
 
 class SignUpViewModel: ViewModel() {
     private val repository = SignRepository()
-    //val signUpSuccessLiveData: MutableLiveData<> = MutableLiveData()
 
     fun signUp(signUpRequest: SignUpRequest){
         viewModelScope.launch {
             when(val result = repository.signUp(signUpRequest)){
                 is Result.Success -> {
                     if(result.code == 201){
-                        Log.e("SignViewModel","signUp")
+                        Log.e("SignUpViewModel","success")
                     }
                 }
                 is Result.Error -> {
-
+                    Log.e("SignUpViewModel",result.exception)
                 }
 
             }
         }
     }
+
 }

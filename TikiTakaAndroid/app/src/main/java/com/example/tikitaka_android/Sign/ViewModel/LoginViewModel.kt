@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tikitaka_android.Network.Result
 import com.example.tikitaka_android.Sign.Data.SignRepository
+import com.example.tikitaka_android.Sign.Data.TokenResponse
+import com.example.tikitaka_android.Util.TikiTakaApplication.Companion.prefs
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
@@ -19,9 +21,11 @@ class LoginViewModel : ViewModel() {
 
             when(val result = repository.login(hashMap)){
                 is Result.Success -> {
-
+                    if(result.code == 200){
+                        getAuthSuccess(result.data)
+                    }
                 }
-
+                
                 is Result.Error -> {
 
                 }
@@ -30,10 +34,8 @@ class LoginViewModel : ViewModel() {
 
     }
 
-    private fun getAuthSuccess(result: Result.Success<Unit>){
-        if(result.code == 200){
-
-        }
+    private fun getAuthSuccess(data: TokenResponse){
+        prefs?.saveToken(true,data.accessToken)
     }
 
 }

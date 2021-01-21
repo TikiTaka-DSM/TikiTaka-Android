@@ -6,11 +6,11 @@ import android.content.Context
 class TikiTakaApplication : Application() {
 
     companion object {
-        lateinit var prefs: SharedPreferencesManager
+        var prefs: SharedPreferencesManager? = null
     }
 
     override fun onCreate() {
-        prefs = SharedPreferencesManager(applicationContext)
+        val prefs = SharedPreferencesManager(applicationContext)
         super.onCreate()
     }
 }

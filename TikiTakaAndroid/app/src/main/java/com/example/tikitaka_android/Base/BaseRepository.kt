@@ -13,6 +13,6 @@ open class BaseRepository {
     }
 
     fun getAccessToken(): String? {
-        return TikiTakaApplication.prefs.getToken()
+        return TikiTakaApplication.prefs!!.getToken()
     }
 }
