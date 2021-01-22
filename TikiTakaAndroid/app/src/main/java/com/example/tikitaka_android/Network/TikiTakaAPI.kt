@@ -3,6 +3,8 @@ package com.example.tikitaka_android.Network
 import com.example.tikitaka_android.Profile.Data.MyProfileResponse
 import com.example.tikitaka_android.Profile.Data.ProfileResponse
 import com.example.tikitaka_android.Sign.Data.SignUpRequest
+import com.example.tikitaka_android.Sign.Data.TokenResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 

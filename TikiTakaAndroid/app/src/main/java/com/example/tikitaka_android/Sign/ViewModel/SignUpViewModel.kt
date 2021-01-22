@@ -16,8 +16,9 @@ class SignUpViewModel: ViewModel() {
             when(val result = repository.signUp(signUpRequest)){
                 is Result.Success -> {
                     if(result.code == 201){
-                        Log.e("SignUpViewModel","success")
+                        Log.e("SignUpViewModel","signUp")
                     }
+
                 }
                 is Result.Error -> {
                     Log.e("SignUpViewModel",result.exception)
@@ -26,5 +27,4 @@ class SignUpViewModel: ViewModel() {
             }
         }
     }
-
 }

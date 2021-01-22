@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.tikitaka_android.R
 import com.example.tikitaka_android.Sign.Data.SignUpRequest
 import com.example.tikitaka_android.Sign.Ui.SignActivity
 import com.example.tikitaka_android.Sign.ViewModel.SignUpViewModel
@@ -31,11 +30,11 @@ class SignUpFragment : Fragment() {
 
         sign_signUp_button.setOnClickListener {
             signUpCheck()
-            (activity as SignActivity).setFragment("Login")
+            (activity as SignActivity).replaceFragment(LoginFragment())
         }
 
         sign_goLogin_button.setOnClickListener {
-            (activity as SignActivity).setFragment("Login")
+            (activity as SignActivity).replaceFragment(LoginFragment())
         }
     }
 

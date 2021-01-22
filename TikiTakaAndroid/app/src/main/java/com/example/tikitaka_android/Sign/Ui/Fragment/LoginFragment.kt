@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.tikitaka_android.R
 import com.example.tikitaka_android.Sign.Ui.SignActivity
 import com.example.tikitaka_android.Sign.ViewModel.LoginViewModel
 import com.example.tikitaka_android.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
@@ -35,7 +33,7 @@ class LoginFragment : Fragment() {
         }
 
         login_goSign_button.setOnClickListener {
-            (activity as SignActivity).setFragment("signUp")
+            (activity as SignActivity).replaceFragment(SignUpFragment())
         }
 
     }
