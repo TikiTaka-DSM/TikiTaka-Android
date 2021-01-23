@@ -80,7 +80,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/login_id_button"
-        android:hint="@string/PasswordCheck"
+        android:hint="@string/password_check"
         android:inputType="textPassword"
         android:paddingLeft="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
