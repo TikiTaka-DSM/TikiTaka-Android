@@ -1,5 +1,6 @@
 package com.example.tikitaka_android.Network
 
+import com.example.tikitaka_android.Home.Data.Friend
 import com.example.tikitaka_android.Profile.Data.MyProfileResponse
 import com.example.tikitaka_android.Profile.Data.ProfileResponse
 import com.example.tikitaka_android.Sign.Data.SignUpRequest
@@ -16,12 +17,13 @@ interface TikiTakaAPI{
     suspend fun signUp(@Body body:SignUpRequest):Response<Unit>
 
     @GET("/profile")
-    suspend fun myProfile(
+    suspend fun getMyProfile(
         @Header("Authorization") header: String,
     ): Response<MyProfileResponse>
 
     @GET("profile/{id}")
-    suspend fun getProfile(
+    suspend fun getFriendProfile(
+        @Header("Authorization") header: String,
         @Path("id") id: String
     ): Response<ProfileResponse>
 
@@ -43,5 +45,15 @@ interface TikiTakaAPI{
         @Header("Authorization") header: String,
         @Path("id") id: String
     ): Response<Unit>
+
+    @GET("/friend?id{id}")
+    suspend fun searchFriend(
+        @Path("id") id: String
+    ): Response<Unit>
+
+    @GET("/friends")
+    suspend fun getFriendsList(
+        @Header ("Authorization") header: String
+    ): Response<List<Friend>>
 
 }
