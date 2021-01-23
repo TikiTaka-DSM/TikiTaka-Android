@@ -21,7 +21,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menu_home_addUser"
+        android:id="@+id/menu_home_search"
         android:icon="@drawable/icon_add"
         android:title=" "
         app:showAsAction="always" />

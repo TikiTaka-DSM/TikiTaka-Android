@@ -17,8 +17,6 @@ class LoginViewModel : ViewModel() {
         hashMap["password"] = password
 
         viewModelScope.launch {
-            repository.login(hashMap)
-
             when(val result = repository.login(hashMap)){
                 is Result.Success -> {
                     if(result.code == 200){
