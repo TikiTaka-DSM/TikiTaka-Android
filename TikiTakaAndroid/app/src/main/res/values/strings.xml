@@ -7,15 +7,17 @@
     <string name="notUser">계정이 없으신가요?</string>
     <string name="signUp_comment">지금 바로 티키타카 가입해 보세요!</string>
     <string name="name">이름</string>
-    <string name="PasswordCheck">Password check</string>
+    <string name="password_check">Password check</string>
     <string name="signUp">SignUp</string>
     <string name="login_fail">id와 password가 일치하지 않습니다</string>
     <string name="go_login">로그인하기</string>
-    <string name="addFriends">친구 추가</string>
+    <string name="add_friends">친구 추가</string>
     <string name="chat">채팅하기</string>
     <string name="block">차단</string>
     <string name="cancel">취소</string>
     <string name="toBlock">차단하기</string>
     <string name="unblock">차단 해제</string>
     <string name="change">변경하기</string>
+    <string name="search_friend">검색을 통해 친구를 찾아보세요!</string>
+    <string name="search_fail">존재하지 않는 아이디입니다.</string>
 </resources>
