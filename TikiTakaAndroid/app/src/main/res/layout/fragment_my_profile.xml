@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Profile.Ui.MyProfileFragment">
+    tools:context=".profile.ui.MyProfileFragment">
 
     <Button
         android:id="@+id/myProfile_setting_button"

@@ -20,4 +20,6 @@
     <string name="change">변경하기</string>
     <string name="search_friend">검색을 통해 친구를 찾아보세요!</string>
     <string name="search_fail">존재하지 않는 아이디입니다.</string>
+    <string name="send">전송</string>
+    <string name="end_recording">녹음 끝내려면 아이콘을 클릭해 주세요.</string>
 </resources>
