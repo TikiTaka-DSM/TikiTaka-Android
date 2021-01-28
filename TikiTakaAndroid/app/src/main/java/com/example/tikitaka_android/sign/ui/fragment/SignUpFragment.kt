@@ -1,4 +1,4 @@
-package com.example.tikitaka_android.sign.ui.Fragment
+package com.example.tikitaka_android.sign.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

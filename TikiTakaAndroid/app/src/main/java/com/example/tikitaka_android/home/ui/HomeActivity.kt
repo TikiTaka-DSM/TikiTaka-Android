@@ -3,7 +3,7 @@ package com.example.tikitaka_android.home.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.tikitaka_android.home.ui.Fragment.SearchFragment
+import com.example.tikitaka_android.home.ui.fragment.SearchFragment
 import com.example.tikitaka_android.profile.ui.MyProfileFragment
 import com.example.tikitaka_android.R
 import com.example.tikitaka_android.databinding.ActivityHomeBinding
