@@ -1,8 +1,11 @@
 package com.example.tikitaka_android.network
 
-import com.example.tikitaka_android.home.data.Friend
-import com.example.tikitaka_android.profile.data.MyProfileResponse
-import com.example.tikitaka_android.profile.data.ProfileResponse
+import com.example.tikitaka_android.chat.data.ChatListData
+import com.example.tikitaka_android.chat.data.RoomListData
+import com.example.tikitaka_android.home.data.FriendListData
+import com.example.tikitaka_android.profile.data.MyProfileData
+import com.example.tikitaka_android.profile.data.FriendProfileData
+import com.example.tikitaka_android.profile.data.RoomData
 import com.example.tikitaka_android.sign.data.SignUpRequest
 import com.example.tikitaka_android.sign.data.TokenResponse
 import okhttp3.MultipartBody
@@ -19,13 +22,13 @@ interface TikiTakaAPI{
     @GET("/profile")
     suspend fun getMyProfile(
         @Header("Authorization") header: String,
-    ): Response<MyProfileResponse>
+    ): Response<MyProfileData>
 
     @GET("profile/{id}")
     suspend fun getFriendProfile(
         @Header("Authorization") header: String,
         @Path("id") id: String
-    ): Response<ProfileResponse>
+    ): Response<FriendProfileData>
 
     @Multipart
     @PUT("/profile")
@@ -54,6 +57,22 @@ interface TikiTakaAPI{
     @GET("/friends")
     suspend fun getFriendsList(
         @Header ("Authorization") header: String
-    ): Response<List<Friend>>
+    ): Response<FriendListData>
 
+    @POST("/room")
+    suspend fun joinRoom(
+        @Header ("Authorization") header: String,
+        @Part("friend") friend: Int
+    ): Response<RoomData>
+
+    @GET("/rooms")
+    suspend fun getRoomList(
+            @Header ("Authorization") header: String
+    ): Response<RoomListData>
+
+    @GET("/room/{id}")
+    suspend fun getChatList(
+            @Header ("Authorization") header: String,
+            @Path("id") id: String
+     ): Response<ChatListData>
 }
