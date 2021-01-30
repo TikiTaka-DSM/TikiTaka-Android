@@ -5,56 +5,63 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tikitaka_android.network.Result
-import com.example.tikitaka_android.profile.data.MyProfileResponse
 import com.example.tikitaka_android.profile.data.ProfileRepository
-import com.example.tikitaka_android.profile.data.ProfileResponse
+import com.example.tikitaka_android.profile.data.FriendProfileData
 import kotlinx.coroutines.launch
 
-class ProfileViewModel: ViewModel() {
-    private val repository = ProfileRepository()
-    val myProfileLiveData: MutableLiveData<MyProfileResponse> = MutableLiveData()
-    val friendProfileLiveData : MutableLiveData<ProfileResponse> =  MutableLiveData()
+class ProfileViewModel : ViewModel() {
+    private val repository =  ProfileRepository()
+    val friendProfileLiveData: MutableLiveData<FriendProfileData> = MutableLiveData()
+    val blockLiveData: MutableLiveData<Int> = MutableLiveData()
+    val addFriendLiveData: MutableLiveData<Int> = MutableLiveData()
 
-    fun getMyProfile(){
+    fun getFriendProfile(id: String) {
         viewModelScope.launch {
-            val result = repository.getMyProfile()
+            when(val result = repository.getFriendProfile(id)){
+                is Result.Success -> getFriendProfileSuccess(result)
 
-            if(result is Result.Success){
-                getMyProfileSuccess(result)
-            }else {
-                Log.e("ProfileViewModel", "fail")
+                is Result.Error -> Log.e("ProfileViewModel", (result as Result.Error).exception)
             }
         }
     }
 
-    fun getFriendProfile(id: String){
+    fun setBlock(id: String){
         viewModelScope.launch {
-            val result = repository.getFriendProfile(id)
+            when(val result = repository.setBlock(id)){
+                is Result.Success -> setBlockSuccess(result)
 
-            if(result is Result.Success) {
-
-            }else {
-
+                is Result.Error -> Log.e("ProfileViewModel", (result as Result.Error).exception)
             }
         }
     }
 
-    private fun getMyProfileSuccess(result: Result.Success<MyProfileResponse>){
-        if(result.code == 200) {
-            val data = result.data
-            if(data != null) {
-                myProfileLiveData.postValue(data)
+    fun addFriend(id: String) {
+        viewModelScope.launch {
+            when(val result = repository.addFriend(id)){
+                is Result.Success -> setAddFriend(result)
+
+                is Result.Error -> Log.e("ProfileViewModel", (result as Result.Error).exception)
             }
         }
     }
 
-    private fun getFriendProfileSuccess(result: Result.Success<ProfileResponse>){
-        if(result.code == 200) {
+    private fun getFriendProfileSuccess(result: Result.Success<FriendProfileData>) {
+        if (result.code == 200) {
             val data = result.data
-            if(data != null) {
+            Log.e("ProfileViewModel",data.toString())
+
+            if (data != null) {
                 friendProfileLiveData.postValue(data)
             }
         }
+    }
+
+    private fun setAddFriend(result: Result.Success<Unit>) {
+        addFriendLiveData.value = result.code
+    }
+
+    private fun setBlockSuccess(result: Result.Success<Unit>) {
+        blockLiveData.value = result.code
     }
 
 }
