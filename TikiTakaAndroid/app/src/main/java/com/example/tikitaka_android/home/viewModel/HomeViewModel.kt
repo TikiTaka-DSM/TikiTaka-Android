@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tikitaka_android.home.data.Friend
+import com.example.tikitaka_android.home.data.FriendListData
 import com.example.tikitaka_android.network.Result
 import com.example.tikitaka_android.home.data.HomeRepository
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel : ViewModel() {
     private val repository = HomeRepository()
     var searchLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    var friendListLiveData: MutableLiveData<List<Friend>> = MutableLiveData()
+    var friendListLiveData: MutableLiveData<FriendListData> = MutableLiveData()
 
     fun searchFriend(id: String) {
         viewModelScope.launch {
@@ -38,8 +38,9 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    private fun setFriendListLiveData(result: Result.Success<List<Friend>>) {
+    private fun setFriendListLiveData(result: Result.Success<FriendListData>) {
         if(result.code == 200) {
+            Log.e("homeViewModel",result.toString())
             friendListLiveData.postValue(result.data)
         }
     }
