@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.tikitaka_android.home.data.FriendListData
 import com.example.tikitaka_android.network.Result
 import com.example.tikitaka_android.home.data.HomeRepository
+import com.example.tikitaka_android.home.data.RoomListData
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     private val repository = HomeRepository()
     var searchLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var friendListLiveData: MutableLiveData<FriendListData> = MutableLiveData()
+    var roomListLiveData: MutableLiveData<RoomListData> = MutableLiveData()
 
     fun searchFriend(id: String) {
         viewModelScope.launch {
@@ -42,6 +44,23 @@ class HomeViewModel : ViewModel() {
         if(result.code == 200) {
             Log.e("homeViewModel",result.toString())
             friendListLiveData.postValue(result.data)
+        }
+    }
+
+    fun getRoomList(){
+        viewModelScope.launch {
+            val result = repository.getRoomList()
+            if(result is Result.Success){
+                setRoomListLiveData(result)
+            } else {
+                Log.e("getRoomList","fail")
+            }
+        }
+    }
+
+    private fun setRoomListLiveData(result: Result.Success<RoomListData>) {
+        if(result.code == 200) {
+            roomListLiveData.postValue(result.data)
         }
     }
 }
