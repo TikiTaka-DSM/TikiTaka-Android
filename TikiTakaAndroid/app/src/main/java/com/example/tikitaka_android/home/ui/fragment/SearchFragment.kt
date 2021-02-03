@@ -39,13 +39,15 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.searchButton.setOnClickListener {
+
             setFriendSearch()
         }
     }
 
     private fun setFriendSearch(){
         var friendId = binding.searchEditText.text.toString()
-        if(binding.searchEditText.text.toString() != null){
+
+        if(friendId!= null){
             viewModel.searchFriend(friendId)
         } else {
             binding.searchCommentTextView.text = getString(R.string.search_friend)

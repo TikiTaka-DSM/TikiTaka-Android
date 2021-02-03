@@ -7,6 +7,9 @@ import com.example.tikitaka_android.home.ui.fragment.SearchFragment
 import com.example.tikitaka_android.profile.ui.MyProfileFragment
 import com.example.tikitaka_android.R
 import com.example.tikitaka_android.databinding.ActivityHomeBinding
+import com.example.tikitaka_android.home.ui.fragment.FriendListFragment
+import com.example.tikitaka_android.home.ui.fragment.RoomListFragment
+import com.example.tikitaka_android.profile.ui.ProfileFragment
 
 class HomeActivity : AppCompatActivity() {
     private var mBinding : ActivityHomeBinding? = null
@@ -18,7 +21,7 @@ class HomeActivity : AppCompatActivity() {
         mBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(MyProfileFragment())
+        replaceFragment(SearchFragment())
         bottomNavigationItemClick()
     }
 
@@ -26,11 +29,11 @@ class HomeActivity : AppCompatActivity() {
         binding.homeBottomAppbar.setOnNavigationItemReselectedListener {
             when(it.itemId){
                 R.id.menu_home_list -> {
-
+                    replaceFragment(FriendListFragment())
                 }
 
                 R.id.menu_home_chat -> {
-
+                    replaceFragment(RoomListFragment())
                 }
 
                 R.id.menu_home_profile -> {

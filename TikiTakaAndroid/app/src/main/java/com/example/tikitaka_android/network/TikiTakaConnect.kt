@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object TikiTakaConnect{
     private var retrofit: Retrofit
     private var api: TikiTakaAPI
-    private val baseURL = "http://54.180.2.226:5000"
+    private const val baseURL = "http://54.180.2.226:5000"
     const val s3 = "https://jobits.s3.ap-northeast-2.amazonaws.com/"
 
     init{

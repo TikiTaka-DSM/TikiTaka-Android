@@ -1,8 +1,8 @@
 package com.example.tikitaka_android.network
 
 import com.example.tikitaka_android.chat.data.ChatListData
-import com.example.tikitaka_android.chat.data.RoomListData
 import com.example.tikitaka_android.home.data.FriendListData
+import com.example.tikitaka_android.home.data.RoomListData
 import com.example.tikitaka_android.profile.data.MyProfileData
 import com.example.tikitaka_android.profile.data.FriendProfileData
 import com.example.tikitaka_android.profile.data.RoomData
@@ -49,7 +49,7 @@ interface TikiTakaAPI{
         @Path("id") id: String
     ): Response<Unit>
 
-    @GET("/friend?id{id}")
+    @GET("/friend?id={id}")
     suspend fun searchFriend(
         @Path("id") id: String
     ): Response<Unit>

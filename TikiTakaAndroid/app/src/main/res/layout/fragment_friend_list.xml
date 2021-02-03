@@ -7,7 +7,7 @@
     tools:context=".home.ui.fragment.FriendListFragment">
 
     <EditText
-        android:id="@+id/list_search_editText"
+        android:id="@+id/friendList_search_editText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/list_search_button"
+        android:id="@+id/friendList_search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -29,12 +29,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_recyclerview"
+        android:id="@+id/friendList_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/list_search_editText" />
+        app:layout_constraintTop_toBottomOf="@id/friendList_search_editText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
