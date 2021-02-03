@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.ui.ProfileFragment">
+
+    <ImageView
+        android:id="@+id/profile_profile_imageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/icon_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="테스트"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_profile_imageView" />
+
+    <TextView
+        android:id="@+id/profile_intro_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="한줄소개"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_textView" />
+
+    <View
+        android:layout_width="150dp"
+        android:background="@color/mainCoral"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_intro_textView"
+        android:layout_height="2dp"/>
+
+    <Button
+        android:id="@+id/profile_addUser_button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/changebutton_background"
+        android:text="@string/add_friends"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_intro_textView" />
+
+    <Button
+        android:id="@+id/profile_chat_button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/changebutton_background"
+        android:text="@string/chat"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/profile_block_button"
+        app:layout_constraintTop_toBottomOf="@id/profile_intro_textView" />
+
+    <Button
+        android:id="@+id/profile_block_button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginRight="75dp"
+        android:background="@drawable/changebutton_background"
+        android:text="@string/block"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_intro_textView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

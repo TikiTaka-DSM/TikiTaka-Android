@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".home.ui.HomeActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/home_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/home_bottom_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/mainCoral"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/home_menu_colors"
+        app:menu="@menu/home_menu" />
+
+</LinearLayout>
