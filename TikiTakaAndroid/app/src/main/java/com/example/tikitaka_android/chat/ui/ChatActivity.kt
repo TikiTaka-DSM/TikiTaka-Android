@@ -22,12 +22,13 @@ class ChatActivity : AppCompatActivity() {
     private var socket = TikiTakaSocket()
     private val viewModel = ChatViewModel()
     private var recordingCount = 0
+    private var roomID: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityChatBinding.inflate(layoutInflater)
 
-        /*setContentView(binding.root)
+        setContentView(binding.root)
 
         binding.chatImageImageButton.setOnClickListener {
             getImage()
@@ -35,15 +36,13 @@ class ChatActivity : AppCompatActivity() {
 
         binding.chatSendButton.setOnClickListener {
             var message = binding.chatMessageEditText.text.toString()
-
-            socket.sendMessage(1,message)
+            socket.sendMessage(roomID,message)
         }
 
         binding.chatRecordingImageButton.setOnClickListener {
             recordingCount++
             recording()
-        }*/
-
+        }
     }
 
     private fun recording(){
@@ -87,7 +86,7 @@ class ChatActivity : AppCompatActivity() {
                 var image = data?.data
                 var path: String = Base64.encodeToString(image?.encodedAuthority?.encode()?.toByteArray(),Base64.DEFAULT)
 
-                socket.sendImage(1,path)
+                socket.sendImage(roomID,path)
 
             }catch (e: Exception){
                 println(e)
