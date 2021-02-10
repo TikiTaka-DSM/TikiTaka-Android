@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.example.tikitaka_android.sign.ui.SignActivity
 import com.example.tikitaka_android.sign.viewModel.LoginViewModel
 import com.example.tikitaka_android.databinding.FragmentLoginBinding
+import com.example.tikitaka_android.home.ui.HomeActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
@@ -43,6 +44,16 @@ class LoginFragment : Fragment() {
         var password = binding.loginPasswordEditText.text.toString()
 
         viewModel.login(id, password)
+
+        if(viewModel.loginLiveData.value == true) {
+            changeActivity()
+        } else {
+            binding.loginLoginfailTextView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun changeActivity(){
+        (activity as SignActivity).changeActivity()
     }
 
     override fun onDestroyView() {

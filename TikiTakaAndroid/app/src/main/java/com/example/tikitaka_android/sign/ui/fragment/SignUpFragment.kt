@@ -30,7 +30,7 @@ class SignUpFragment : Fragment() {
 
         sign_signUp_button.setOnClickListener {
             signUpCheck()
-            (activity as SignActivity).replaceFragment(LoginFragment())
+            //(activity as SignActivity).replaceFragment(LoginFragment())
         }
 
         sign_goLogin_button.setOnClickListener {

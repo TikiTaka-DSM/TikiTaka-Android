@@ -1,5 +1,6 @@
 package com.example.tikitaka_android.sign.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tikitaka_android.network.Result
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
     private val repository = SignRepository()
+    var loginLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     fun login(id: String, password: String){
         val hashMap: HashMap<String,String> = HashMap()
@@ -20,16 +22,21 @@ class LoginViewModel : ViewModel() {
             when(val result = repository.login(hashMap)){
                 is Result.Success -> {
                     if(result.code == 200){
+                        setLoginLiveData(true)
                         getAuthSuccess(result.data)
                     }
                 }
 
                 is Result.Error -> {
-
+                    setLoginLiveData(false)
                 }
             }
         }
 
+    }
+
+    private fun setLoginLiveData(value: Boolean){
+        loginLiveData.value = value
     }
 
     private fun getAuthSuccess(data: TokenResponse){
