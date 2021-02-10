@@ -73,6 +73,6 @@ interface TikiTakaAPI{
     @GET("/room/{id}")
     suspend fun getChatList(
             @Header ("Authorization") header: String,
-            @Path("id") id: String
+            @Path("id") id: Int
      ): Response<ChatListData>
 }
