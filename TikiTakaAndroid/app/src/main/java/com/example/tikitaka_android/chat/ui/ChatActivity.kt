@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
 import com.example.tikitaka_android.chat.MediaRecorder
 import com.example.tikitaka_android.chat.TikiTakaSocket
+import com.example.tikitaka_android.chat.ui.adapter.ChatListAdapter
 import com.example.tikitaka_android.chat.viewModel.ChatViewModel
 import com.example.tikitaka_android.databinding.ActivityChatBinding
 import okio.ByteString.Companion.encode
@@ -18,11 +21,11 @@ import java.lang.Exception
 class ChatActivity : AppCompatActivity() {
     private var mBinding: ActivityChatBinding? = null
     private val binding get() = mBinding!!
+    private val viewModel = ChatViewModel()
     private val OPEN_GALLERY = 200
     private var socket = TikiTakaSocket()
-    private val viewModel = ChatViewModel()
     private var recordingCount = 0
-    private var roomID: Int = 0
+    private var roomID: Int = 21
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +33,40 @@ class ChatActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        setChatList()
+
         binding.chatImageImageButton.setOnClickListener {
             getImage()
         }
 
         binding.chatSendButton.setOnClickListener {
             var message = binding.chatMessageEditText.text.toString()
-            socket.sendMessage(roomID,message)
+
+            socket.sendMessage(roomID,"AndroidTest")
+            socket.test()
+
+            Log.e("ChatActivity","sendMessage")
         }
 
         binding.chatRecordingImageButton.setOnClickListener {
-            recordingCount++
-            recording()
+
+            Log.e("ChatActivity","joinRoom")
+
+            socket.joinRoom(roomID)
+            socket.test()
+
+            /*recordingCount++
+            recording()*/
         }
+    }
+
+    private fun setChatList(){
+        viewModel.getChatList(roomID)
+
+        viewModel.chatListLiveData.observe(this,{
+            var chatListAdapter = ChatListAdapter(it)
+            binding.chatListRecycler.adapter = chatListAdapter
+        })
     }
 
     private fun recording(){
