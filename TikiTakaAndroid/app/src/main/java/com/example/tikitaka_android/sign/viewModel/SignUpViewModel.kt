@@ -18,7 +18,6 @@ class SignUpViewModel: ViewModel() {
                     if(result.code == 201){
                         Log.e("SignUpViewModel","signUp")
                     }
-
                 }
                 is Result.Error -> {
                     Log.e("SignUpViewModel",result.exception)

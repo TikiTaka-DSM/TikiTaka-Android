@@ -50,7 +50,6 @@
             android:background="@drawable/chat_edittext"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="안녕"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:visibility="visible" />
