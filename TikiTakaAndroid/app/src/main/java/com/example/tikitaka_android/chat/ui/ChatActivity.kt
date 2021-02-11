@@ -33,8 +33,6 @@ class ChatActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        setChatList()
-
         binding.chatImageImageButton.setOnClickListener {
             getImage()
         }
@@ -42,18 +40,12 @@ class ChatActivity : AppCompatActivity() {
         binding.chatSendButton.setOnClickListener {
             var message = binding.chatMessageEditText.text.toString()
 
-            socket.sendMessage(roomID,"AndroidTest")
-            socket.test()
-
             Log.e("ChatActivity","sendMessage")
         }
 
         binding.chatRecordingImageButton.setOnClickListener {
 
             Log.e("ChatActivity","joinRoom")
-
-            socket.joinRoom(roomID)
-            socket.test()
 
             /*recordingCount++
             recording()*/
@@ -120,6 +112,7 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        socket.close()
         mBinding = null
     }
 }
