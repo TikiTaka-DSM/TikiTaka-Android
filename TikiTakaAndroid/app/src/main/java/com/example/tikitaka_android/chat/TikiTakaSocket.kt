@@ -15,6 +15,14 @@ class TikiTakaSocket {
         socket.connect()
     }
 
+    fun joinRoom(roomId: Int){
+        socket = IO.socket(BASE_URL)
+        socket.connect()
+
+        socket.emit("joinRoom",roomId)
+    }
+
+
     fun sendMessage(roomId: Int, message: String) {
         if (message != null) {
             socket.emit("sendMessage", roomId, token, message)
@@ -41,13 +49,6 @@ class TikiTakaSocket {
 
             socket.emit("sendVoice", hashMap)
         }
-    }
-
-    fun joinRoom(roomId: Int){
-        socket = IO.socket(BASE_URL)
-        socket.connect()
-
-        socket.emit("joinRoom",roomId)
     }
 
     fun close() {
