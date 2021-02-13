@@ -8,7 +8,6 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
 import com.example.tikitaka_android.chat.MediaRecorder
 import com.example.tikitaka_android.chat.TikiTakaSocket
 import com.example.tikitaka_android.chat.ui.adapter.ChatListAdapter
@@ -33,12 +32,16 @@ class ChatActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.chatImageImageButton.setOnClickListener {
+        socket.open()
+        socket.joinRoom(roomID.toInt())
+
+        binding.chatImageImageButton.setOnClickListener{
             getImage()
         }
 
         binding.chatSendButton.setOnClickListener {
             var message = binding.chatMessageEditText.text.toString()
+            socket.sendImage(roomID,"AndroidTest")
 
             Log.e("ChatActivity","sendMessage")
         }
