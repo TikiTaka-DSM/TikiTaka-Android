@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.tikitaka_android.databinding.FragmentFriendListBinding
+import com.example.tikitaka_android.home.ui.HomeActivity
 import com.example.tikitaka_android.home.ui.adapter.FriendListAdapter
 import com.example.tikitaka_android.home.viewModel.HomeViewModel
 
