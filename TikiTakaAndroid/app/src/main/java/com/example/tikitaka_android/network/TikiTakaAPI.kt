@@ -62,7 +62,7 @@ interface TikiTakaAPI{
     @POST("/room")
     suspend fun joinRoom(
         @Header ("Authorization") header: String,
-        @Part("friend") friend: Int
+        @Part("friend") friend: String
     ): Response<RoomData>
 
     @GET("/rooms")
