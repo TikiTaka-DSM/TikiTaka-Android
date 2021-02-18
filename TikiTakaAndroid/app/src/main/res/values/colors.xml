@@ -7,4 +7,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="gray">#BEBEBE</color>
+    <color name="modify_gry">#40BEBEBE</color>
 </resources>
