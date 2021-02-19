@@ -34,7 +34,9 @@ interface TikiTakaAPI{
     @PUT("/profile")
     suspend fun modifyProfile(
         @Header("Authorization") header: String,
-        @PartMap part: HashMap<String,MultipartBody.Part>
+        @Part img: MultipartBody.Part,
+        @Part name: MultipartBody.Part,
+        @Part stateMessage: MultipartBody.Part
     ): Response<Unit>
 
     @DELETE("/friend/block/{id}")
