@@ -21,7 +21,7 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentSignUpBinding.inflate(inflater, container,false)
+        mBinding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,6 +54,25 @@ class SignUpFragment : Fragment() {
         } else {
             binding.signFailTextView.visibility = View.VISIBLE
             binding.signFailTextView.text = "비밀번호가 일치하지 않습니다"
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putString("id", binding.signIdEditText.text.toString())
+            putString("name", binding.signNameEditText.text.toString())
+            putString("password", binding.signPasswordEditText.text.toString())
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            with(savedInstanceState) {
+                binding.signIdEditText.setText(getString("id"))
+                binding.signNameEditText.setText(getString("name"))
+                binding.signPasswordEditText.setText(getString("password"))
+            }
         }
     }
 
