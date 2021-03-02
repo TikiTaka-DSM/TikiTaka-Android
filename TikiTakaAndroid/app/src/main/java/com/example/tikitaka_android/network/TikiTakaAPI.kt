@@ -34,7 +34,7 @@ interface TikiTakaAPI{
     @PUT("/profile")
     suspend fun modifyProfile(
         @Header("Authorization") header: String,
-        @Part img: MultipartBody.Part,
+        @Part img: MultipartBody,
         @Part name: MultipartBody.Part,
         @Part stateMessage: MultipartBody.Part
     ): Response<Unit>
@@ -51,9 +51,9 @@ interface TikiTakaAPI{
         @Path("id") id: String
     ): Response<Unit>
 
-    @GET("/friend?id={id}")
+    @GET("/friend?")
     suspend fun searchFriend(
-        @Path("id") id: String
+        @Query ("id") id: String
     ): Response<Unit>
 
     @GET("/friends")
