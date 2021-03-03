@@ -110,6 +110,7 @@
         android:background="@drawable/login_login_button"
         android:text="@string/signUp"
         android:textSize="15sp"
+        app:backgroundTint="@color/mainCoral"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sign_passwordCheck_editText" />
