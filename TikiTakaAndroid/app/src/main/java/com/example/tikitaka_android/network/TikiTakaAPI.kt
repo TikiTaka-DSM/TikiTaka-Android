@@ -12,69 +12,75 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface TikiTakaAPI{
+interface TikiTakaAPI {
     @POST("/user/auth")
-    suspend fun login(@Body body: HashMap<String,String>): Response<TokenResponse>
+    suspend fun login(@Body body: HashMap<String, String>): Response<TokenResponse>
 
     @POST("user")
-    suspend fun signUp(@Body body:SignUpRequest):Response<Unit>
+    suspend fun signUp(@Body body: SignUpRequest): Response<Unit>
 
     @GET("/profile")
     suspend fun getMyProfile(
-        @Header("Authorization") header: String,
+            @Header("Authorization") header: String,
     ): Response<MyProfileData>
 
     @GET("profile/{id}")
     suspend fun getFriendProfile(
-        @Header("Authorization") header: String,
-        @Path("id") id: String
+            @Header("Authorization") header: String,
+            @Path("id") id: String
     ): Response<FriendProfileData>
 
     @Multipart
     @PUT("/profile")
     suspend fun modifyProfile(
-        @Header("Authorization") header: String,
-        @Part img: MultipartBody,
-        @Part name: MultipartBody.Part,
-        @Part stateMessage: MultipartBody.Part
+            @Header("Authorization") header: String,
+            @Part img: MultipartBody.Part,
+            @Part name: MultipartBody.Part,
+            @Part stateMessage: MultipartBody.Part
     ): Response<Unit>
 
-    @DELETE("/friend/block/{id}")
+    @PUT("/friend/block/{id}")
     suspend fun block(
-        @Header("Authorization") header: String,
-        @Path("id") id: String
+            @Header("Authorization") header: String,
+            @Path("id") id: String
     ): Response<Unit>
 
-    @POST ("/friend/{id}")
+    @POST("/friend/{id}")
     suspend fun addFriend(
-        @Header("Authorization") header: String,
-        @Path("id") id: String
+            @Header("Authorization") header: String,
+            @Path("id") id: String
     ): Response<Unit>
 
     @GET("/friend?")
     suspend fun searchFriend(
-        @Query ("id") id: String
+            @Query("id") id: String
+    ): Response<Unit>
+
+    @GET("/friends?")
+    suspend fun myFriendSearch(
+            @Header("Authorization") header: String,
+            @Query("name") name: String
     ): Response<Unit>
 
     @GET("/friends")
     suspend fun getFriendsList(
-        @Header ("Authorization") header: String
+            @Header("Authorization") header: String
     ): Response<FriendListData>
 
     @POST("/room")
     suspend fun joinRoom(
-        @Header ("Authorization") header: String,
-        @Part("friend") friend: String
+            @Header("Authorization") header: String,
+            @Part("friend") friend: String
     ): Response<RoomData>
 
     @GET("/rooms")
     suspend fun getRoomList(
-            @Header ("Authorization") header: String
+            @Header("Authorization") header: String
     ): Response<RoomListData>
 
     @GET("/room/{id}")
     suspend fun getChatList(
-            @Header ("Authorization") header: String,
+            @Header("Authorization") header: String,
             @Path("id") id: Int
-     ): Response<ChatListData>
+    ): Response<ChatListData>
 }

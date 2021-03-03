@@ -1,11 +1,8 @@
-package com.example.tikitaka_android.profile.ui
+ package com.example.tikitaka_android.profile.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.tikitaka_android.databinding.FragmentModifyProfileBinding
-import com.example.tikitaka_android.home.ui.HomeActivity
 import com.example.tikitaka_android.network.TikiTakaConnect
 import com.example.tikitaka_android.profile.viewModel.MyProfileViewModel
 import java.io.File
@@ -47,8 +43,6 @@ class ModifyProfileFragment : Fragment() {
         }
 
         binding.modifyChangeButton.setOnClickListener {
-            Log.e("ModifyProfile", "ChangeBtn Click")
-
             var name = binding.modifyNameEditText.text.toString()
             var stateMessage = binding.modifyIntroEditText.text.toString()
 
@@ -58,8 +52,6 @@ class ModifyProfileFragment : Fragment() {
 
     private fun init(){
         getProfileData()
-
-        imageFile = File(Environment.getExternalStorageDirectory(), "profile.png")
     }
 
     private fun getImage() {

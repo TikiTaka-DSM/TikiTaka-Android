@@ -1,7 +1,6 @@
 package com.example.tikitaka_android.profile.data
 
 import com.example.tikitaka_android.base.BaseRepository
-import com.example.tikitaka_android.chat.data.RoomData
 import com.example.tikitaka_android.network.Result
 import com.example.tikitaka_android.network.TikiTakaConnect
 import okhttp3.MultipartBody
