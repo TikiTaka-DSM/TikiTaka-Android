@@ -1,5 +1,6 @@
 package com.example.tikitaka_android.home.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tikitaka_android.R
 import com.example.tikitaka_android.databinding.FragmentFriendListBinding
 import com.example.tikitaka_android.home.ui.HomeActivity
 import com.example.tikitaka_android.home.ui.adapter.FriendListAdapter
 import com.example.tikitaka_android.home.viewModel.HomeViewModel
+import com.example.tikitaka_android.profile.ui.ProfileActivity
 
 class FriendListFragment : Fragment() {
     private var mBinding: FragmentFriendListBinding? = null
@@ -29,7 +32,27 @@ class FriendListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        binding.friendListSearchButton.setOnClickListener {
+            setFriendSearch()
+        }
+
         setFriendList()
+    }
+
+    private fun setFriendSearch(){
+        var friendId = binding.friendListSearchEditText.text.toString()
+
+        if (friendId != null) {
+            viewModel.myFriendSearch(friendId)
+        }
+
+        viewModel.mySearchLiveData.observe(viewLifecycleOwner, {
+            if (it) {
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtra("friendID",friendId)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun setFriendList(){
