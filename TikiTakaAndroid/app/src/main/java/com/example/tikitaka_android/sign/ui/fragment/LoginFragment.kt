@@ -9,31 +9,30 @@ import androidx.fragment.app.viewModels
 import com.example.tikitaka_android.sign.ui.SignActivity
 import com.example.tikitaka_android.sign.viewModel.LoginViewModel
 import com.example.tikitaka_android.databinding.FragmentLoginBinding
-import com.example.tikitaka_android.home.ui.HomeActivity
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.example.tikitaka_android.util.TikiTakaApplication.Companion.prefs
 
 class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
     private var mBinding: FragmentLoginBinding? = null
     private val binding get() = mBinding!!
 
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentLoginBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        login_login_button.setOnClickListener {
+        binding.loginLoginButton.setOnClickListener {
             loginCheck()
         }
 
-        login_goSign_button.setOnClickListener {
+        binding.loginGoSignButton.setOnClickListener {
             (activity as SignActivity).replaceFragment(SignUpFragment())
         }
 
