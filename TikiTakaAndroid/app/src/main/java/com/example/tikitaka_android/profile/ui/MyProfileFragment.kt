@@ -45,7 +45,7 @@ class MyProfileFragment : Fragment() {
             binding.myProfileNameTextView.text = it.profileData.name
             binding.myProfileIdTextView.text = it.profileData.id
             binding.myProfileIntroTextView.text = it.profileData.statusMessage
-            Glide.with(this).load(TikiTakaConnect.s3 + it.profileData.img).into(binding.myProfileProfileImageView)
+            Glide.with(this).load(TikiTakaConnect.s3 + it.profileData.img).circleCrop().into(binding.myProfileProfileImageView)
         })
     }
 

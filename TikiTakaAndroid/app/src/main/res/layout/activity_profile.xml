@@ -11,7 +11,8 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="120dp"
-        android:background="@drawable/icon_logo"
+        android:background="@drawable/imageview_round"
+        android:src="@drawable/icon_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,22 +60,7 @@
         android:text="@string/add_friends"
         app:backgroundTint="@color/mainCoral"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_intro_textView" />
-
-    <Button
-        android:id="@+id/profile_unBlock_button"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/changebutton_background"
-        android:text="@string/unblock"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:backgroundTint="@color/mainCoral"
+        android:textSize="13sp"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

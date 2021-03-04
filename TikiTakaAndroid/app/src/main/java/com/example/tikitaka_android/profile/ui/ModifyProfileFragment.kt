@@ -80,7 +80,7 @@ class ModifyProfileFragment : Fragment() {
             binding.modifyNameEditText.setText(it.profileData.name)
             binding.modifyIntroEditText.setText(it.profileData.statusMessage)
             Glide.with(this).load(TikiTakaConnect.s3 + it.profileData.img)
-                .into(binding.modifyProfileImageView)
+                .circleCrop().into(binding.modifyProfileImageView)
         })
     }
 

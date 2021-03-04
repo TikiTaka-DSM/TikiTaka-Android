@@ -23,7 +23,7 @@ class FriendListAdapter(private val friendList: List<User>): RecyclerView.Adapte
 
         fun bind(friend: User) {
             name.text = friend.name
-            Glide.with(itemView).load(TikiTakaConnect.s3+friend.img).into(profileImage)
+            Glide.with(itemView).load(TikiTakaConnect.s3+friend.img).circleCrop().into(profileImage)
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context,ProfileActivity::class.java)

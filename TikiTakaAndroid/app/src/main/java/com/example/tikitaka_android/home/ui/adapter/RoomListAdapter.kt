@@ -25,7 +25,7 @@ class RoomListAdapter(private val roomList: List<Room>): RecyclerView.Adapter<Ro
         fun bind(room: Room){
             name.text = room.user.name
             lastChat.text = room.lastMessage
-            Glide.with(itemView).load(TikiTakaConnect.s3+room.user.img).into(profileImage)
+            Glide.with(itemView).load(TikiTakaConnect.s3+room.user.img).circleCrop().into(profileImage)
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, ChatActivity::class.java)
