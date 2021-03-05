@@ -15,39 +15,20 @@ class TikiTakaSocket {
         socket.connect()
     }
 
-    fun joinRoom(roomId: Int){
-        socket = IO.socket(BASE_URL)
-        socket.connect()
-
-        socket.emit("joinRoom",roomId)
+    fun joinRoom(roomID: Int) {
+        socket.emit("joinRoom", roomID)
     }
 
-
-    fun sendMessage(roomId: Int, message: String) {
+    fun sendMessage(roomID: Int, message: String) {
         if (message != null) {
-            socket.emit("sendMessage", roomId, token, message)
+            socket.emit("sendMessage", roomID, token, message)
         }
         close()
     }
 
-    fun sendImage(roomId: Int, image: String) {
+    fun sendImage(roomID: Int, image: String) {
         if (image != null) {
-            socket.emit("sendImage", roomId.toString(), token, image)
-        }
-
-    }
-
-    fun sendVoice(roomId: Int, voice: String) {
-        if (voice != null) {
-            var hashMap: HashMap<String, Any> = HashMap()
-
-            hashMap.apply {
-                put("roomId", roomId)
-                put("token", token)
-                put("message", voice)
-            }
-
-            socket.emit("sendVoice", hashMap)
+            socket.emit("sendImage", roomID, token, image)
         }
     }
 
@@ -62,6 +43,5 @@ class TikiTakaSocket {
     var onUpdateChat = Emitter.Listener {
         val result = if(it.isNotEmpty()) it[0].toString() else it.toString()
     }
-
 
 }
