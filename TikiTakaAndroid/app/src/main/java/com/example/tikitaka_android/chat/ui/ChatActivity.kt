@@ -3,18 +3,17 @@ package com.example.tikitaka_android.chat.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import android.view.View
-import com.example.tikitaka_android.chat.MediaRecorder
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tikitaka_android.R
 import com.example.tikitaka_android.chat.TikiTakaSocket
 import com.example.tikitaka_android.chat.ui.adapter.ChatListAdapter
 import com.example.tikitaka_android.chat.viewModel.ChatViewModel
 import com.example.tikitaka_android.databinding.ActivityChatBinding
 import okio.ByteString.Companion.encode
-import java.io.File
 import java.lang.Exception
 
 class ChatActivity : AppCompatActivity() {
@@ -23,8 +22,7 @@ class ChatActivity : AppCompatActivity() {
     private val viewModel = ChatViewModel()
     private val OPEN_GALLERY = 200
     private var socket = TikiTakaSocket()
-    private var recordingCount = 0
-    private var roomID: Int = 21
+    private var roomId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +30,8 @@ class ChatActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        socket.open()
-        socket.joinRoom(roomID.toInt())
+        chatInit()
+        //setChatList()
 
         binding.chatImageImageButton.setOnClickListener{
             getImage()
@@ -41,54 +39,46 @@ class ChatActivity : AppCompatActivity() {
 
         binding.chatSendButton.setOnClickListener {
             var message = binding.chatMessageEditText.text.toString()
-            socket.sendImage(roomID,"AndroidTest")
+            socket.sendMessage(roomId,message)
 
             Log.e("ChatActivity","sendMessage")
         }
 
-        binding.chatRecordingImageButton.setOnClickListener {
+    }
 
-            Log.e("ChatActivity","joinRoom")
+    private fun chatInit() {
+        if(intent.hasExtra("friendId")) {
+            val friendId = intent.getStringExtra("friendId").toString()
 
-            /*recordingCount++
-            recording()*/
-        }
+            viewModel.joinRoom(friendId)
+
+            viewModel.joinRoomLiveData.observe(this, {
+                roomId = it
+                Log.e("ChatActivity","roomId : $roomId")
+            })
+
+            /*socket.open()
+            socket.joinRoom(roomId)*/
+
+        } else Toast.makeText(this,getString(R.string.unknown_request),Toast.LENGTH_SHORT).show()
+
+
     }
 
     private fun setChatList(){
-        viewModel.getChatList(roomID)
+        viewModel.getChatList(roomId)
+
+        val mLayoutManager = LinearLayoutManager(this)
+        mLayoutManager.reverseLayout = true
+        mLayoutManager.stackFromEnd = true
 
         viewModel.chatListLiveData.observe(this,{
+            binding.chatNameTextView.text = it.roomData.name
+
             var chatListAdapter = ChatListAdapter(it)
+            binding.chatListRecycler.layoutManager = mLayoutManager
             binding.chatListRecycler.adapter = chatListAdapter
         })
-    }
-
-    private fun recording(){
-        val recording = MediaRecorder
-        var voiceFile = File(Environment.getExternalStorageDirectory(), "TikiTaka.mp3")
-
-        if(recordingCount % 2 == 0){
-            recordingView(true)
-            recording.startRecorder(voiceFile.absolutePath)
-        } else {
-            recordingView(false)
-            recording.stopRecorder()
-
-            socket.sendVoice(1,voiceFile.absolutePath)
-        }
-    }
-
-    private fun recordingView(value: Boolean){
-        if(value){
-            binding.chatImageImageButton.visibility = View.GONE
-            binding.chatMessageEditText.visibility = View.GONE
-            binding.chatRecordingMessageTextView.visibility = View.VISIBLE
-        } else {
-            binding.chatImageImageButton.visibility = View.VISIBLE
-            binding.chatMessageEditText.visibility = View.VISIBLE
-            binding.chatRecordingMessageTextView.visibility = View.INVISIBLE
-        }
     }
 
     private fun getImage(){
@@ -105,7 +95,7 @@ class ChatActivity : AppCompatActivity() {
                 var image = data?.data
                 var path: String = Base64.encodeToString(image?.encodedAuthority?.encode()?.toByteArray(),Base64.DEFAULT)
 
-                socket.sendImage(roomID,path)
+                socket.sendImage(roomId,path)
 
             }catch (e: Exception){
                 println(e)
