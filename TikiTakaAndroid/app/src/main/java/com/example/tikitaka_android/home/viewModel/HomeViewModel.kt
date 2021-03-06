@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel : ViewModel() {
     private val repository = HomeRepository()
     var searchLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    var mySearchLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var friendListLiveData: MutableLiveData<FriendListData> = MutableLiveData()
     var roomListLiveData: MutableLiveData<RoomListData> = MutableLiveData()
 
@@ -24,9 +25,22 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun myFriendSearch(id: String) {
+        viewModelScope.launch {
+            val result = repository.myFriendSearch(id)
+            if(result is Result.Success) setMySearchLiveData(result)
+            else mySearchLiveData.postValue(false)
+        }
+    }
+
     private fun setSearchLiveData(result: Result.Success<Unit>) {
         if(result.code == 200)searchLiveData.postValue(true)
         else if(result.code == 404) searchLiveData.postValue(false)
+    }
+
+    private fun setMySearchLiveData(result: Result.Success<Unit>) {
+        if(result.code == 200) mySearchLiveData.postValue(true)
+        else if(result.code == 404) mySearchLiveData.postValue(false)
     }
 
     fun getFriendsList(){
