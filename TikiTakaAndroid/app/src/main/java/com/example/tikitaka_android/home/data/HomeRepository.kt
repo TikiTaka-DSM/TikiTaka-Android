@@ -1,5 +1,6 @@
 package com.example.tikitaka_android.home.data
 
+import android.util.Log
 import com.example.tikitaka_android.base.BaseRepository
 import com.example.tikitaka_android.network.Result
 import com.example.tikitaka_android.network.TikiTakaConnect
@@ -10,6 +11,10 @@ class HomeRepository: BaseRepository() {
 
     suspend fun searchFriend(id: String): Result<Unit> {
         return mappingToResult { TikiTakaConnect.createAPI().searchFriend(id) }
+    }
+
+    suspend fun myFriendSearch(id: String): Result<Unit> {
+        return mappingToResult { TikiTakaConnect.createAPI().myFriendSearch(testToken, id) }
     }
 
     suspend fun getFriendsList(): Result<FriendListData>{
