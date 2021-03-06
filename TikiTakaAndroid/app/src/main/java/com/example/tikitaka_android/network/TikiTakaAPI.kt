@@ -1,6 +1,7 @@
 package com.example.tikitaka_android.network
 
 import com.example.tikitaka_android.chat.data.ChatListData
+import com.example.tikitaka_android.chat.data.ChatRoomData
 import com.example.tikitaka_android.home.data.FriendListData
 import com.example.tikitaka_android.home.data.RoomListData
 import com.example.tikitaka_android.profile.data.MyProfileData
@@ -8,6 +9,7 @@ import com.example.tikitaka_android.profile.data.FriendProfileData
 import com.example.tikitaka_android.profile.data.RoomData
 import com.example.tikitaka_android.sign.data.SignUpRequest
 import com.example.tikitaka_android.sign.data.TokenResponse
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -70,8 +72,8 @@ interface TikiTakaAPI {
     @POST("/room")
     suspend fun joinRoom(
             @Header("Authorization") header: String,
-            @Part("friend") friend: String
-    ): Response<RoomData>
+            @Body friend: JsonObject
+    ): Response<ChatRoomData>
 
     @GET("/rooms")
     suspend fun getRoomList(
