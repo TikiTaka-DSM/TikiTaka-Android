@@ -1,6 +1,7 @@
 package com.example.tikitaka_android.profile.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,16 +12,21 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
     private val repository =  ProfileRepository()
-    val friendProfileLiveData: MutableLiveData<FriendProfileData> = MutableLiveData()
-    val blockLiveData: MutableLiveData<Int> = MutableLiveData()
-    val addFriendLiveData: MutableLiveData<Int> = MutableLiveData()
+
+    private val _friendProfileLiveData = MutableLiveData<FriendProfileData>()
+    private val _blockLiveData = MutableLiveData<Int>()
+    private val _addFriendLiveData = MutableLiveData<Int>()
+
+    val friendProfileLiveData: LiveData<FriendProfileData> get() = _friendProfileLiveData
+    val blockLiveData: LiveData<Int> get() = _blockLiveData
+    val addFriendLiveData: LiveData<Int> get() = _addFriendLiveData
 
     fun getFriendProfile(id: String) {
         viewModelScope.launch {
             when(val result = repository.getFriendProfile(id)){
                 is Result.Success -> getFriendProfileSuccess(result)
 
-                is Result.Error -> Log.e("ProfileViewModel", (result as Result.Error).exception)
+                is Result.Error -> Log.e("ProfileViewModel", result.exception)
             }
         }
     }
@@ -30,7 +36,7 @@ class ProfileViewModel : ViewModel() {
             when(val result = repository.setBlock(id)){
                 is Result.Success -> setBlockSuccess(result)
 
-                is Result.Error -> Log.e("ProfileViewModel", (result as Result.Error).exception)
+                is Result.Error -> Log.e("ProfileViewModel", result.exception)
             }
         }
     }
@@ -40,8 +46,14 @@ class ProfileViewModel : ViewModel() {
             when(val result = repository.addFriend(id)){
                 is Result.Success -> setAddFriend(result)
 
-                is Result.Error -> Log.e("ProfileViewModel", (result as Result.Error).exception)
+                is Result.Error -> Log.e("ProfileViewModel", result.exception)
             }
+        }
+    }
+
+    fun joinRoom(friendID: String) {
+        viewModelScope.launch {
+
         }
     }
 
@@ -51,17 +63,18 @@ class ProfileViewModel : ViewModel() {
             Log.e("ProfileViewModel",data.toString())
 
             if (data != null) {
-                friendProfileLiveData.postValue(data)
+                _friendProfileLiveData.postValue(data)
             }
         }
     }
 
     private fun setAddFriend(result: Result.Success<Unit>) {
-        addFriendLiveData.value = result.code
+        _addFriendLiveData.value = result.code
     }
 
     private fun setBlockSuccess(result: Result.Success<Unit>) {
-        blockLiveData.value = result.code
+        _blockLiveData.value = result.code
     }
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.tikitaka_android.chat.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,8 +14,12 @@ import kotlinx.coroutines.launch
 
 class ChatViewModel : ViewModel() {
     private var repository = ChatRepository()
-    var chatListLiveData: MutableLiveData<ChatListData> = MutableLiveData()
-    var joinRoomLiveData: MutableLiveData<Int> = MutableLiveData()
+
+    private val _chatListLiveData = MutableLiveData<ChatListData>()
+    private val _joinRoomLiveData = MutableLiveData<Int>()
+
+    val chatListLiveData: LiveData<ChatListData> get() = _chatListLiveData
+    val joinRoomLiveData: LiveData<Int> = MutableLiveData()
 
     fun getChatList(roomID: Int) {
         viewModelScope.launch {
@@ -30,7 +35,7 @@ class ChatViewModel : ViewModel() {
 
     private fun setChatListLiveData(result: Result.Success<ChatListData>) {
         if (result.code == 200) {
-            chatListLiveData.value = result.data
+            _chatListLiveData.value = result.data
         }
     }
 

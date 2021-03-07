@@ -1,5 +1,6 @@
 package com.example.tikitaka_android.sign.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,10 +12,12 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
     private val repository = SignRepository()
-    var loginLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun login(id: String, password: String){
-        val hashMap: HashMap<String,String> = HashMap()
+    private val _loginLiveData = MutableLiveData<Boolean>()
+    val loginLiveData: LiveData<Boolean> get() = _loginLiveData
+
+    fun login(id: String, password: String) = viewModelScope.launch {
+        val hashMap: HashMap<String, String> = HashMap()
         hashMap["id"] = id
         hashMap["password"] = password
 
@@ -32,11 +35,10 @@ class LoginViewModel : ViewModel() {
                 }
             }
         }
-
     }
 
     private fun setLoginLiveData(value: Boolean){
-        loginLiveData.value = value
+        _loginLiveData.value = value
     }
 
     private fun getAuthSuccess(data: TokenResponse){
