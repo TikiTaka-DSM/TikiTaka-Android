@@ -12,14 +12,14 @@ import com.example.tikitaka_android.network.Result
 import com.google.gson.JsonObject
 import kotlinx.coroutines.launch
 
-class ChatViewModel : ViewModel() {
+class ChatAPIViewModel : ViewModel() {
     private var repository = ChatRepository()
 
     private val _chatListLiveData = MutableLiveData<ChatListData>()
     private val _joinRoomLiveData = MutableLiveData<Int>()
 
     val chatListLiveData: LiveData<ChatListData> get() = _chatListLiveData
-    val joinRoomLiveData: LiveData<Int> = MutableLiveData()
+    val joinRoomLiveData: LiveData<Int> get() = _joinRoomLiveData
 
     fun getChatList(roomID: Int) {
         viewModelScope.launch {
