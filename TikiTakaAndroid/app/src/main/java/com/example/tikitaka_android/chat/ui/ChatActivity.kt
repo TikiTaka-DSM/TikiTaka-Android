@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tikitaka_android.R
 import com.example.tikitaka_android.chat.TikiTakaSocket
 import com.example.tikitaka_android.chat.ui.adapter.ChatListAdapter
-import com.example.tikitaka_android.chat.viewModel.ChatViewModel
+import com.example.tikitaka_android.chat.viewModel.ChatAPIViewModel
+import com.example.tikitaka_android.chat.viewModel.ChatSocketVIewModel
 import com.example.tikitaka_android.databinding.ActivityChatBinding
 import okio.ByteString.Companion.encode
 import java.lang.Exception
@@ -19,7 +20,8 @@ import java.lang.Exception
 class ChatActivity : AppCompatActivity() {
     private var mBinding: ActivityChatBinding? = null
     private val binding get() = mBinding!!
-    private val viewModel = ChatViewModel()
+    private val viewModel = ChatAPIViewModel()
+    private val sViewModel = ChatSocketVIewModel()
     private val OPEN_GALLERY = 200
     private var socket = TikiTakaSocket()
     private var roomId: Int = 0
@@ -38,6 +40,8 @@ class ChatActivity : AppCompatActivity() {
         }
 
         binding.chatSendButton.setOnClickListener {
+            Log.e("chatActivity",roomId.toString())
+
             var message = binding.chatMessageEditText.text.toString()
             socket.sendMessage(roomId,message)
 
@@ -47,22 +51,19 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun chatInit() {
-        if(intent.hasExtra("friendId")) {
-            val friendId = intent.getStringExtra("friendId").toString()
-
+        val friendId = intent.getStringExtra("friendId").toString()
+        if(intent.hasExtra("roomId")) {
+            roomId = intent.getIntExtra("roomId",0)
+        } else {
             viewModel.joinRoom(friendId)
-
             viewModel.joinRoomLiveData.observe(this, {
                 roomId = it
-                Log.e("ChatActivity","roomId : $roomId")
             })
+        }
 
-            /*socket.open()
-            socket.joinRoom(roomId)*/
-
-        } else Toast.makeText(this,getString(R.string.unknown_request),Toast.LENGTH_SHORT).show()
-
-
+        viewModel.joinRoom(friendId)
+        sViewModel.open()
+        sViewModel.joinRoom(roomId)
     }
 
     private fun setChatList(){
