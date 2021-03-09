@@ -4,27 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tikitaka_android.R
 import com.example.tikitaka_android.chat.data.ChatListData
 import com.example.tikitaka_android.chat.data.MessageData
+import com.example.tikitaka_android.network.TikiTakaConnect
 
-class ChatListAdapter(private val chatListData: ChatListData): RecyclerView.Adapter<ChatListAdapter.ViewHolder>() {
-    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        val friendProfile = itemView.findViewById<ImageView>(R.id.chatCard_friendImage_imageView)
+class ChatListAdapter(private val chatListData: ChatListData): RecyclerView.Adapter<ChatViewHolder>() {
 
-
-        fun bind(messageData: MessageData){
-
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_cardview, parent, false)
-        return ViewHolder(view)
+        return ChatViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(chatListData.messageData[position])
+    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) = holder.bind(chatListData.messageData[position],chatListData.roomData.name)
 
     override fun getItemCount(): Int = chatListData.messageData.size
 }
