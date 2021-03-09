@@ -6,13 +6,10 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tikitaka_android.R
 import com.example.tikitaka_android.chat.TikiTakaSocket
 import com.example.tikitaka_android.chat.ui.adapter.ChatListAdapter
 import com.example.tikitaka_android.chat.viewModel.ChatAPIViewModel
-import com.example.tikitaka_android.chat.viewModel.ChatSocketVIewModel
 import com.example.tikitaka_android.databinding.ActivityChatBinding
 import okio.ByteString.Companion.encode
 import java.lang.Exception
@@ -21,7 +18,6 @@ class ChatActivity : AppCompatActivity() {
     private var mBinding: ActivityChatBinding? = null
     private val binding get() = mBinding!!
     private val viewModel = ChatAPIViewModel()
-    private val sViewModel = ChatSocketVIewModel()
     private val OPEN_GALLERY = 200
     private var socket = TikiTakaSocket()
     private var roomId: Int = 0
@@ -33,7 +29,6 @@ class ChatActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         chatInit()
-        //setChatList()
 
         binding.chatImageImageButton.setOnClickListener{
             getImage()
@@ -44,8 +39,6 @@ class ChatActivity : AppCompatActivity() {
 
             var message = binding.chatMessageEditText.text.toString()
             socket.sendMessage(roomId,message)
-
-            Log.e("ChatActivity","sendMessage")
         }
 
     }
@@ -62,22 +55,20 @@ class ChatActivity : AppCompatActivity() {
         }
 
         viewModel.joinRoom(friendId)
-        sViewModel.open()
-        sViewModel.joinRoom(roomId)
+        socket.open()
+        socket.joinRoom(roomId)
+
+        setChatList()
     }
 
     private fun setChatList(){
         viewModel.getChatList(roomId)
 
-        val mLayoutManager = LinearLayoutManager(this)
-        mLayoutManager.reverseLayout = true
-        mLayoutManager.stackFromEnd = true
-
         viewModel.chatListLiveData.observe(this,{
             binding.chatNameTextView.text = it.roomData.name
 
             var chatListAdapter = ChatListAdapter(it)
-            binding.chatListRecycler.layoutManager = mLayoutManager
+            binding.chatListRecycler.layoutManager = LinearLayoutManager(this)
             binding.chatListRecycler.adapter = chatListAdapter
         })
     }
