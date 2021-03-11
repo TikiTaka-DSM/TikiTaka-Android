@@ -8,6 +8,7 @@ import android.util.Base64
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tikitaka_android.chat.TikiTakaSocket
+import com.example.tikitaka_android.chat.data.RoomData
 import com.example.tikitaka_android.chat.ui.adapter.ChatListAdapter
 import com.example.tikitaka_android.chat.viewModel.ChatAPIViewModel
 import com.example.tikitaka_android.databinding.ActivityChatBinding
@@ -21,11 +22,11 @@ class ChatActivity : AppCompatActivity() {
     private val OPEN_GALLERY = 200
     private var socket = TikiTakaSocket()
     private var roomId: Int = 0
+    private lateinit var roomData: RoomData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityChatBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
         chatInit()
@@ -35,18 +36,15 @@ class ChatActivity : AppCompatActivity() {
         }
 
         binding.chatSendButton.setOnClickListener {
-            Log.e("chatActivity",roomId.toString())
-
-            var message = binding.chatMessageEditText.text.toString()
-            socket.sendMessage(roomId,message)
+            sendMessage()
         }
-
     }
 
     private fun chatInit() {
         val friendId = intent.getStringExtra("friendId").toString()
         if(intent.hasExtra("roomId")) {
             roomId = intent.getIntExtra("roomId",0)
+            Log.e("ChatActivity","friendId : $friendId, roomId : $roomId")
         } else {
             viewModel.joinRoom(friendId)
             viewModel.joinRoomLiveData.observe(this, {
@@ -66,11 +64,19 @@ class ChatActivity : AppCompatActivity() {
 
         viewModel.chatListLiveData.observe(this,{
             binding.chatNameTextView.text = it.roomData.name
+            roomData = it.roomData
 
             var chatListAdapter = ChatListAdapter(it)
             binding.chatListRecycler.layoutManager = LinearLayoutManager(this)
             binding.chatListRecycler.adapter = chatListAdapter
         })
+    }
+
+    private fun sendMessage() {
+        var message = binding.chatMessageEditText.text.toString()
+        socket.sendMessage(roomId,message)
+
+        binding.chatMessageEditText.text.clear()
     }
 
     private fun getImage(){
