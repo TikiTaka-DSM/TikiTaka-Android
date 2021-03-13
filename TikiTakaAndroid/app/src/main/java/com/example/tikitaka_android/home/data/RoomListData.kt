@@ -8,7 +8,7 @@ data class RoomListData(
     )
 
 data class Room(
-    @SerializedName("roomId") val roomId: String,
+    @SerializedName("roomId") val roomId: Int,
     @SerializedName("user") val user: User,
     @SerializedName("lastMessage") val lastMessage: String
     )
