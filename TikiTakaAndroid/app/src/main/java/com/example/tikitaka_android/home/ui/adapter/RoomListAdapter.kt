@@ -1,6 +1,7 @@
 package com.example.tikitaka_android.home.ui.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,6 @@ class RoomListAdapter(private val roomList: List<Room>): RecyclerView.Adapter<Ro
         val profileImage = itemView.findViewById<ImageView>(R.id.room_profile_imageView)
         val name = itemView.findViewById<TextView>(R.id.room_name_textView)
         val lastChat = itemView.findViewById<TextView>(R.id.room_lastChat_textView)
-        val time = itemView.findViewById<TextView>(R.id.room_time_textView)
 
         fun bind(room: Room){
             name.text = room.user.name
@@ -28,7 +28,9 @@ class RoomListAdapter(private val roomList: List<Room>): RecyclerView.Adapter<Ro
             Glide.with(itemView).load(TikiTakaConnect.s3+room.user.img).circleCrop().into(profileImage)
 
             itemView.setOnClickListener {
+                Log.e("RoomListAdapter", "friendId : ${room.user.id}, roomId: ${room.roomId}")
                 val intent = Intent(itemView.context, ChatActivity::class.java)
+                intent.putExtra("friendId", room.user.id)
                 intent.putExtra("roomId",room.roomId)
                 ContextCompat.startActivity(itemView.context, intent, null)
             }
