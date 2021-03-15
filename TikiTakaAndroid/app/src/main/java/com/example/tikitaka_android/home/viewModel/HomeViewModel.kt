@@ -42,7 +42,7 @@ class HomeViewModel : ViewModel() {
 
     private fun setSearchLiveData(result: Result.Success<Unit>) {
         if(result.code == 200) _searchLiveData.value = true
-        else if(result.code == 404) _searchLiveData.value = false
+        else if(result.code == 404 || result.code == 409) _searchLiveData.value = false
     }
 
     private fun setMySearchLiveData(result: Result.Success<Unit>) {
@@ -55,15 +55,12 @@ class HomeViewModel : ViewModel() {
             val result = repository.getFriendsList()
             if(result is Result.Success){
                 setFriendListLiveData(result)
-            } else {
-                Log.e("getFriendsList", "fail")
             }
         }
     }
 
     private fun setFriendListLiveData(result: Result.Success<FriendListData>) {
         if(result.code == 200) {
-            Log.e("homeViewModel",result.toString())
             _friendListLiveData.value = result.data
         }
     }
@@ -73,8 +70,6 @@ class HomeViewModel : ViewModel() {
             val result = repository.getRoomList()
             if(result is Result.Success){
                 setRoomListLiveData(result)
-            } else {
-                Log.e("getRoomList","fail")
             }
         }
     }
